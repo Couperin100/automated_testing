@@ -1,7 +1,16 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
-tfl
-bin
 .Python
+
+# Directories
+bin
 include
 lib
+pip-selfcheck.json
+selenium
+
+# Files
+geckodriver.log
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
