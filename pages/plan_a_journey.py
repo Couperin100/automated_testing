@@ -1,7 +1,8 @@
 from typing import Optional
 
-from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 from selenium.webdriver.support.expected_conditions import (
     visibility_of_element_located)
@@ -25,9 +26,28 @@ class PlanJourneySection:
 
     locators = {
         'root_element': (By.CSS_SELECTOR, '.widget-wrapper'),
-        'from_field': (By.ID, 'InputFrom-error'),
-        'to_field': (By.ID, 'InputTo-error'),
+        'from_field_alert': (By.ID, 'InputFrom-error'),
+        'to_field_alert': (By.ID, 'InputTo-error'),
+        'plan_my_journey': (By.CSS_SELECTOR, '.plan-journey-button'),
+        'from_text_field': (By.CSS_SELECTOR, '.jpFrom.tt-input'),
+        'to_text_field': (By.CSS_SELECTOR, '.jpTo.tt-input'),
+        'change_departure': (By.CSS_SELECTOR, '.change-departure-time'),
+        'remove_icon': (
+            By.CSS_SELECTOR, '.remove-content-container:not(.empty)'),
+
     }  # locators dict
+
+    def _click_and_send_keys(self, element: WebElement, text: str) -> None:
+        """Private method to click and send keys with the given text.
+
+            element: The located web element.
+            text: The given text.
+
+        """
+        element.click()
+        element.clear()
+        element.send_keys(text)
+        element.send_keys(Keys.TAB)
 
     def wait_for_load(self, driver: WebDriver) -> None:
         """Wait until the root element is visible."""
@@ -37,8 +57,33 @@ class PlanJourneySection:
 
     def get_from_field_alert(self) -> str:
         """Return the 'From' field alert."""
-        return self.driver.find_element(*self.locators['from_field']).text
+        return self.driver.find_element(
+            *self.locators['from_field_alert']).text
 
     def get_to_field_alert(self) -> str:
         """Return the 'To' field alert."""
-        return self.driver.find_element(*self.locators['to_field']).text
+        return self.driver.find_element(*self.locators['to_field_alert']).text
+
+    def click_plan_my_journey_button(self) -> str:
+        """Click the 'Plan my journey' button."""
+        return self.driver.find_element(
+            *self.locators['plan_my_journey']).click()
+
+    def click_change_time_text(self) -> str:
+        """Click the 'Change time' text."""
+        return self.driver.find_element(
+            *self.locators['change_departure']).click()
+
+    def click_remove_icon(self) -> str:
+        """Click the 'Remove' icon within the 'From' or 'To'."""
+        return self.driver.find_element(*self.locators['remove_icon']).click()
+
+    def enter_from_text_value(self, text: str) -> None:
+        """Click the 'From' text area and enter given text."""
+        element = self.driver.find_element(*self.locators['from_text_field'])
+        self._click_and_send_keys(element=element, text=text)
+
+    def enter_to_text_value(self, text: str) -> None:
+        """Click the 'To' text area and enter given text."""
+        element = self.driver.find_element(*self.locators['to_text_field'])
+        self._click_and_send_keys(element=element, text=text)
