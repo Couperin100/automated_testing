@@ -30,6 +30,8 @@ class PlanJourneySection:
         'to_field_alert': (By.ID, 'InputTo-error'),
         'plan_my_journey': (By.CSS_SELECTOR, '.plan-journey-button'),
         'from_text_field': (By.CSS_SELECTOR, '.jpFrom.tt-input'),
+        'from_field': (By.CSS_SELECTOR, 'div[id="search-filter-form-0"] pre'),
+        'to_field': (By.CSS_SELECTOR, 'div[id="search-filter-form-1"] pre'),
         'to_text_field': (By.CSS_SELECTOR, '.jpTo.tt-input'),
         'change_departure': (By.CSS_SELECTOR, '.change-departure-time'),
         'remove_icon': (
@@ -60,6 +62,16 @@ class PlanJourneySection:
         return self.driver.find_element(
             *self.locators['from_field_alert']).text
 
+    def get_from_field_text(self) -> str:
+        """Return the current text value within the 'From' field."""
+        return self.driver.find_element(
+            *self.locators['from_field']).get_attribute("innerHTML")
+
+    def get_to_field_text(self) -> str:
+        """Return the current text value within the 'To' field."""
+        return self.driver.find_element(
+            *self.locators['to_field']).get_attribute("innerHTML")
+
     def get_to_field_alert(self) -> str:
         """Return the 'To' field alert."""
         return self.driver.find_element(*self.locators['to_field_alert']).text
@@ -87,3 +99,11 @@ class PlanJourneySection:
         """Click the 'To' text area and enter given text."""
         element = self.driver.find_element(*self.locators['to_text_field'])
         self._click_and_send_keys(element=element, text=text)
+
+    def clear_from_field_text(self):
+        """clear the 'From' field text box."""
+        self.driver.find_element(*self.locators['from_text_field']).clear()
+
+    def clear_to_field_text(self):
+        """clear the 'To' field text box."""
+        self.driver.find_element(*self.locators['from_text_field']).clear()
