@@ -2,6 +2,7 @@
 .idea
 .Python
 .DS_Store
+.pytest_cache
 
 # Directories
 bin
