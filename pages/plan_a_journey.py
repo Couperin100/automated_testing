@@ -22,7 +22,7 @@ class PlanJourneySection:
     @property
     def url(self) -> Optional[str]:
         """Return the expected URL."""
-        return self.env['url']
+        return self.env['site']
 
     locators = {
         'root_element': (By.CSS_SELECTOR, '.widget-wrapper'),
