@@ -10,6 +10,7 @@ ROOT = environ['VIRTUAL_ENV']
 CONFIG_DIR = path.join(ROOT, 'config')
 ENVS = path.join(CONFIG_DIR, 'envs.yaml')
 RESULTS_DIR = path.join(ROOT, 'results')
+EXPECTED = path.join(CONFIG_DIR, 'expected-text')
 
 FULL_REPORT = path.join(RESULTS_DIR, 'report.html')
 
