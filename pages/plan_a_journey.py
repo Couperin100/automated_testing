@@ -1,5 +1,7 @@
 from typing import Optional
 
+from helpers.file_io import get_the_expected_text
+
 from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -38,6 +40,9 @@ class PlanJourneySection:
             By.CSS_SELECTOR, '.remove-content-container:not(.empty)'),
 
     }  # locators dict
+
+    EXPECTED_TEXT_FILE = 'tfl_expected_text.yaml'
+    MAIN_NODE = 'plan_a_journey'
 
     def _click_and_send_keys(self, element: WebElement, text: str) -> None:
         """Private method to click and send keys with the given text.
@@ -107,3 +112,15 @@ class PlanJourneySection:
     def clear_to_field_text(self):
         """clear the 'To' field text box."""
         self.driver.find_element(*self.locators['from_text_field']).clear()
+
+    def get_expected_from_alert_text(self) -> str:
+        """Get the expected alert text for the 'From' field."""
+        return get_the_expected_text(file_name=self.EXPECTED_TEXT_FILE,
+                                     main_node=self.MAIN_NODE,
+                                     secondary_nodes='from_text_alert')
+
+    def get_expected_to_alert_text(self) -> str:
+        """Get the expected alert text for the 'To' field."""
+        return get_the_expected_text(file_name=self.EXPECTED_TEXT_FILE,
+                                     main_node=self.MAIN_NODE,
+                                     secondary_nodes='to_text_alert')

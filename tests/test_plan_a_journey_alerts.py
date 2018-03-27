@@ -9,12 +9,11 @@ from pages.plan_a_journey import PlanJourneySection
 scenario = partial(scenario, '../feature/plan_a_journey_alerts.feature')
 
 DRIVER = webdriver.Chrome()
-FROM_ALERT_TEXT = "The From field is required."
-TO_ALERT_TEXT = "The To field is required."
 
 
 @fixture(scope='module')
 def suite_setup(env: dict):
+    """Setup fixture to open the page and finally close the browser."""
     DRIVER.get(env['site'])
     yield
     DRIVER.quit()
@@ -66,12 +65,12 @@ def i_click_on_the_plan_my_journey_button(env: dict):
 @then("I should see the alert 'The From field is required'")
 def i_should_see_alert_from_field_required(env: dict):
     """Assert that the 'From' alert has the expected text."""
-    assert (PlanJourneySection(
-        DRIVER, env).get_from_field_alert() == FROM_ALERT_TEXT)
+    page = PlanJourneySection(DRIVER, env)
+    assert (page.get_from_field_alert() == page.get_expected_from_alert_text())
 
 
 @then("I should see the alert 'The To field is required'")
 def i_should_see_alert_to_field_required(env: dict):
     """Assert that the 'To' alert has the expected text."""
-    assert (PlanJourneySection(
-        DRIVER, env).get_to_field_alert() == TO_ALERT_TEXT)
+    page = PlanJourneySection(DRIVER, env)
+    assert (page.get_to_field_alert() == page.get_expected_to_alert_text())

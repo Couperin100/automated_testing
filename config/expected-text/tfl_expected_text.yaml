@@ -1,0 +1,3 @@
+plan_a_journey:
+    from_text_alert: The From field is required.
+    to_text_alert: The To field is required.
