@@ -117,10 +117,10 @@ class PlanJourneySection:
         """Get the expected alert text for the 'From' field."""
         return get_the_expected_text(file_name=self.EXPECTED_TEXT_FILE,
                                      main_node=self.MAIN_NODE,
-                                     secondary_nodes='from_text_alert')
+                                     second_node='from_text_alert')
 
     def get_expected_to_alert_text(self) -> str:
         """Get the expected alert text for the 'To' field."""
         return get_the_expected_text(file_name=self.EXPECTED_TEXT_FILE,
                                      main_node=self.MAIN_NODE,
-                                     secondary_nodes='to_text_alert')
+                                     second_node='to_text_alert')
