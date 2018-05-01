@@ -62,6 +62,7 @@ def i_click_on_the_plan_my_journey_button(driver: WebDriver, env: dict):
 def i_should_see_alert_from_field_required(driver: WebDriver, env: dict):
     """Assert that the 'From' alert has the expected text."""
     page = PlanJourneySection(driver, env)
+    assert page.from_alert_is_displayed()
     assert (page.get_from_field_alert() == page.get_expected_from_alert_text())
 
 
@@ -69,4 +70,5 @@ def i_should_see_alert_from_field_required(driver: WebDriver, env: dict):
 def i_should_see_alert_to_field_required(driver: WebDriver, env: dict):
     """Assert that the 'To' alert has the expected text."""
     page = PlanJourneySection(driver, env)
+    assert page.to_alert_is_displayed()
     assert (page.get_to_field_alert() == page.get_expected_to_alert_text())

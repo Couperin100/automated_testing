@@ -2,6 +2,7 @@ from typing import Optional
 
 from helpers.file_io import get_the_expected_text
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -124,3 +125,19 @@ class PlanJourneySection:
         return get_the_expected_text(file_name=self.EXPECTED_TEXT_FILE,
                                      main_node=self.MAIN_NODE,
                                      second_node='to_text_alert')
+
+    def from_alert_is_displayed(self) -> bool:
+        """Verifys whether the 'from' alert is displayed."""
+        try:
+            return self.driver.find_element(
+                *self.locators['from_field_alert']).is_displayed()
+        except NoSuchElementException:
+            return False
+
+    def to_alert_is_displayed(self) -> bool:
+        """Verifys whether the 'to' alert is displayed."""
+        try:
+            return self.driver.find_element(
+                *self.locators['to_field_alert']).is_displayed()
+        except NoSuchElementException:
+            return False
