@@ -24,8 +24,25 @@ def _provision_chrome():
 def _provision_firefox():
     """Provision Firefox driver."""
     capabilities = DesiredCapabilities().FIREFOX
-    capabilities["marionette"] = False
     driver = webdriver.Firefox(capabilities=capabilities)
+    return driver
+
+
+def _provision_safari():
+    """Provision Safari driver."""
+    driver = webdriver.Safari()
+    return driver
+
+
+def _provision_ios():
+    """Provision iOS driver."""
+    capabilities = DesiredCapabilities().IPHONE
+    capabilities['browserName'] = 'Safari'
+    capabilities['deviceName'] = 'iPhone 7'
+    capabilities['platformVersion'] = '11.4'
+    capabilities['platformName'] = 'iOS'
+    capabilities['nativeWebTap'] = True
+    driver = webdriver.Remote('http://localhost:4723/wd/hub', capabilities)
     return driver
 
 
@@ -41,6 +58,8 @@ def driver():
     browsers = {
         'chrome': _provision_chrome,
         'firefox': _provision_firefox,
+        'ios': _provision_ios,
+        'safari': _provision_safari,
     }
     browser = pytest.config.option.browser
     _driver = browsers[browser]()
