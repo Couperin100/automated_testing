@@ -1,2 +1,2 @@
-# tfl_automated_testing
+# automated_testing
 An example of automated testing using the page object methodology.
