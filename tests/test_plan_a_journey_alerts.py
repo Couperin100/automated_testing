@@ -52,6 +52,13 @@ def i_leave_the_to_field_empty(driver: WebDriver, env: dict):
     PlanJourneySection(driver, env).clear_to_field_text()
 
 
+@given("I leave the 'From' and 'To' field empty")
+def i_leave_both_fields_empty(driver: WebDriver, env: dict):
+    """Clear the From and To fields."""
+    PlanJourneySection(driver, env).clear_from_field_text()
+    PlanJourneySection(driver, env).clear_to_field_text()
+
+
 @when("I click on the plan my journey button")
 def i_click_on_the_plan_my_journey_button(driver: WebDriver, env: dict):
     """Click on the 'plan_my_journey' button."""

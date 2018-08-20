@@ -17,8 +17,7 @@ Feature: Plan a journey using the TFL website.
     Then I should see the alert 'The To field is required'
 
   Scenario: I do not enter a station into the To or From field
-    Given I leave the 'From' field empty
-    And I leave the 'To' field empty
+    Given I leave the 'From' and 'To' field empty
     When I click on the plan my journey button
     Then I should see the alert 'The From field is required'
     And I should see the alert 'The To field is required'
