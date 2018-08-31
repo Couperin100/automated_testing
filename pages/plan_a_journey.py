@@ -33,12 +33,12 @@ class PlanJourneySection:
         'to_field_alert': (By.ID, 'InputTo-error'),
         'plan_my_journey': (By.CSS_SELECTOR, '.plan-journey-button'),
         'from_text_field': (By.CSS_SELECTOR, '.jpFrom.tt-input'),
-        'from_field': (By.CSS_SELECTOR, 'div[id="search-filter-form-0"] pre'),
-        'to_field': (By.CSS_SELECTOR, 'div[id="search-filter-form-1"] pre'),
         'to_text_field': (By.CSS_SELECTOR, '.jpTo.tt-input'),
         'change_departure': (By.CSS_SELECTOR, '.change-departure-time'),
         'remove_icon': (
-            By.CSS_SELECTOR, '.remove-content-container:not(.empty)'),
+            By.CSS_SELECTOR, '.remove-content-container:not(.empty) a.remove-content'),
+        'plan_a_journey_button': (By.ID, 'hp-journey-planner'),
+        'close_cookie_message': (By.CSS_SELECTOR, '.close3-icon.hide-text'),
 
     }  # locators dict
 
@@ -71,12 +71,12 @@ class PlanJourneySection:
     def get_from_field_text(self) -> str:
         """Return the current text value within the 'From' field."""
         return self.driver.find_element(
-            *self.locators['from_field']).get_attribute("innerHTML")
+            *self.locators['from_text_field']).get_attribute("value")
 
     def get_to_field_text(self) -> str:
         """Return the current text value within the 'To' field."""
         return self.driver.find_element(
-            *self.locators['to_field']).get_attribute("innerHTML")
+            *self.locators['to_text_field']).get_attribute("value")
 
     def get_to_field_alert(self) -> str:
         """Return the 'To' field alert."""
@@ -106,13 +106,13 @@ class PlanJourneySection:
         element = self.driver.find_element(*self.locators['to_text_field'])
         self._click_and_send_keys(element=element, text=text)
 
-    def clear_from_field_text(self):
+    def clear_from_field_text(self) -> None:
         """clear the 'From' field text box."""
         self.driver.find_element(*self.locators['from_text_field']).clear()
 
-    def clear_to_field_text(self):
+    def clear_to_field_text(self) -> None:
         """clear the 'To' field text box."""
-        self.driver.find_element(*self.locators['from_text_field']).clear()
+        self.driver.find_element(*self.locators['to_text_field']).clear()
 
     def get_expected_from_alert_text(self) -> str:
         """Get the expected alert text for the 'From' field."""
@@ -135,9 +135,34 @@ class PlanJourneySection:
             return False
 
     def to_alert_is_displayed(self) -> bool:
-        """Verifys whether the 'to' alert is displayed."""
+        """Verifies whether the 'to' alert is displayed."""
         try:
             return self.driver.find_element(
                 *self.locators['to_field_alert']).is_displayed()
         except NoSuchElementException:
             return False
+
+    def click_the_plan_a_journey_button(self) -> None:
+        """Button appears when screen size is below a certain threshold.
+
+        On smaller screens (i.e. mobile devices) the tfl site then hides
+        the 'From' and 'To' fields within a widget-wrapper.  Clicking
+        this button exposes the items hidden inside container.
+
+
+        """
+        self.driver.find_element(*self.locators['plan_a_journey_button']).click()
+
+    def cookie_message_is_displayed(self) -> bool:
+        """``True`` if the cookie message is displayed ``False`` if not."""
+        return self.driver.find_element(
+            *self.locators['close_cookie_message']).is_displayed()
+
+    def click_close_cookie_message(self) -> None:
+        """Click the close cookie message on the tfl.gov.uk page.
+
+        Sometimes the cookie message will slightly obscure the widget when
+        loading the page.  If this happens then the tests will fail.
+
+        """
+        self.driver.find_element(*self.locators['close_cookie_message']).click()

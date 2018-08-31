@@ -42,6 +42,7 @@ def _provision_ios():
     capabilities['platformVersion'] = '11.4'
     capabilities['platformName'] = 'iOS'
     capabilities['nativeWebTap'] = True
+    capabilities['real_mobile'] = False
     driver = webdriver.Remote('http://localhost:4723/wd/hub', capabilities)
     return driver
 
@@ -63,5 +64,6 @@ def driver():
     }
     browser = pytest.config.option.browser
     _driver = browsers[browser]()
+    _driver.maximize_window()
     yield _driver
     _driver.quit()
