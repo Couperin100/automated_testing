@@ -1,0 +1,9 @@
+one_item: one_item
+list_item:
+  - list one
+  - list two
+  - list three
+dictionary:
+  item_one: 1
+  item_two: 2
+  item_three: 3
