@@ -11,6 +11,7 @@ CONFIG_DIR = path.join(ROOT, 'config')
 ENVS = path.join(CONFIG_DIR, 'envs.yaml')
 RESULTS_DIR = path.join(ROOT, 'results')
 EXPECTED = path.join(CONFIG_DIR, 'expected-text')
+UNIT_TESTS = path.join(ROOT, 'unit_tests')
 
 FULL_REPORT = path.join(RESULTS_DIR, 'report.html')
 
