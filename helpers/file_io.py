@@ -21,20 +21,22 @@ def read_yaml_file(file_path: str) -> dict:
 
 
 def get_the_expected_text(
-        file_name: str, main_node: str = None,
+        file_name: str, language: str, main_node: str = None,
         second_node: str = None) -> Union[str, dict, None]:
     """Get the expected text from the expected text yaml file.
 
         Args:
             file_name: File name of the yaml file.
+            language: Localised Language.
             main_node: The main node of the yaml file.
             second_node: Second node that returns the expected value
                 required (a string).
 
         Example:
-            yaml_file_name = 'tfl_expected_text.yaml'
+            yaml_file_name = 'expected_text.yaml'
             file.get_expected_text(file_name=yaml_file_name ,
                                    main_node='plan_a_journey',
+                                   language='en-uk',
                                    second_node='to_text_alert')
 
         Return:
@@ -44,6 +46,6 @@ def get_the_expected_text(
     """
     expected_nodes_dict = read_yaml_file(path.join(EXPECTED, file_name))
     if second_node is not None:
-        return expected_nodes_dict[main_node][second_node]
+        return expected_nodes_dict[language][main_node][second_node]
     else:
-        return expected_nodes_dict[main_node]
+        return expected_nodes_dict[language][main_node]

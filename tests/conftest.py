@@ -2,6 +2,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+from helpers.docker_helpers import (
+    start_docker_container, stop_docker_container, wait_for_docker_container)
 from helpers.file_io import read_yaml_file
 from helpers.paths import ENVS
 
@@ -15,9 +17,17 @@ def pytest_addoption(parser):
     )
 
 
+@pytest.fixture(scope='module')
+def module_context() -> dict:
+    """Pass data between test scenarios."""
+    return {}
+
+
 def _provision_chrome():
     """Provision Chrome driver."""
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('w3c', False)
+    driver = webdriver.Chrome(chrome_options=options)
     return driver
 
 
@@ -61,9 +71,21 @@ def driver():
         'firefox': _provision_firefox,
         'ios': _provision_ios,
         'safari': _provision_safari,
+        'docker': start_docker_container,
     }
     browser = pytest.config.option.browser
-    _driver = browsers[browser]()
-    _driver.maximize_window()
+
+    if 'docker' in browser:
+        docker = True
+        browser = browser.split(':')[1]
+        wait_for_docker_container()
+        _driver = browsers['docker'](browser=browser)
+
+    else:
+        _driver = browsers[browser]()
+        _driver.maximize_window()
+
     yield _driver
     _driver.quit()
+    # if docker is True:
+    #     stop_docker_container(browser)

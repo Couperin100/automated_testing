@@ -1,0 +1,28 @@
+# Localisation yaml file containing the expected text.
+en-uk:
+  selenium_test_page:
+      title: Submitted Values
+      No Value for username: No Value for username
+      No Value for password: No Value for password
+      Comments...: Comments...
+      No Value for filename: No Value for filename
+      Hidden Field Value: Hidden Field Value
+      cb3: cb3
+      rd2: rd2
+      ms4: ms4
+      dd3: dd3
+      submit: submit
+
+jp:
+  selenium_test_page:
+      title: 送信された値
+      No Value for username: ユーザー名に値がありません
+      No Value for password: パスワードの値がありません
+      Comments...: コメント...
+      No Value for filename: ファイル名に値がありません
+      Hidden Field Value: 非表示フィールド値
+      cb3: cb3
+      rd2: rd2
+      ms4: ms4
+      dd3: dd3
+      submit: 参加する
