@@ -1,2 +1,4 @@
-site: https://tfl.gov.uk/
+# Yaml file containing the Global Framework specifics.
+language: en-uk
+site: https://www.seleniumsimplified.com/testpages/basic_html_form.html
 timeout: 10
