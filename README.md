@@ -10,7 +10,12 @@ The framework currently supports the below browsers:
  - Firefox
  - Safari
  
-To run the tests all you need to do is include the browser option (e.g. --browser chrome or --browser firefox)
+You'll need to install the correct drivers (e.g. chromedriver) for your browser version in order to interact with the browser.
+
+https://chromedriver.chromium.org/ - Chromedriver
+https://github.com/mozilla/geckodriver/releases/ - Geckodriver
+ 
+To run the tests all you need to do is include the browser option (e.g. pytest --browser chrome or --browser firefox tests/test_selenium_test_page.py)
 when running the tests.
 
 Below is a screenshot of the results page thats produced after every test that can be loaded into a 
